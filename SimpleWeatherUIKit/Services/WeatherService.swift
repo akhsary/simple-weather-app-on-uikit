@@ -14,7 +14,7 @@ fileprivate let key = "b522a2d63414c8b37c1c262907b47a4d"
 final class WeatherService {
     static let shared = WeatherService()
     
-    func fetchWeather(latitude: CLLocationCoordinate2D, longitude: CLLocationCoordinate2D, complition: @escaping (Result<ResponseBody,APIError>) -> Void) {
+    func fetchWeather(latitude: CLLocationDegrees, longitude: CLLocationDegrees, complition: @escaping (Result<ResponseBody,APIError>) -> Void) {
         let url = "https://api.openweathermap.org/data/2.5/weather?lat=\(latitude)&lon=\(longitude)&appid=\(key)&units=metric"
         
         AF.request(url)
@@ -24,7 +24,7 @@ final class WeatherService {
                 case .success:
                     print("DEBUG: Validation Successful")
                 case let .failure(error):
-                    complition(Result.failure(.requestFailed(description: "Bad HTTP Response: \(error.localizedDescription)")))
+                    complition(Result.failure(.invalidStatusCode(error: error)))
                 }
             }
             .response { response in

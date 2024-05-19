@@ -21,5 +21,8 @@
 			</array>
 		</dict>
 	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>
+Access to application data is required to show your local weather.</string>
 </dict>
 </plist>
