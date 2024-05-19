@@ -6,3 +6,43 @@
 //
 
 import Foundation
+import Alamofire
+import CoreLocation
+
+fileprivate let key = "b522a2d63414c8b37c1c262907b47a4d"
+
+final class WeatherService {
+    static let shared = WeatherService()
+    
+    func fetchWeather(latitude: CLLocationCoordinate2D, longitude: CLLocationCoordinate2D, complition: @escaping (Result<ResponseBody,APIError>) -> Void) {
+        let url = "https://api.openweathermap.org/data/2.5/weather?lat=\(latitude)&lon=\(longitude)&appid=\(key)&units=metric"
+        
+        AF.request(url)
+            .validate()
+            .responseData { response in
+                switch response.result {
+                case .success:
+                    print("DEBUG: Validation Successful")
+                case let .failure(error):
+                    complition(Result.failure(.requestFailed(description: "Bad HTTP Response: \(error.localizedDescription)")))
+                }
+            }
+            .response { response in
+                guard let data = response.data else {
+                    guard let error = response.error else {
+                        return
+                    }
+                    complition(Result.failure(.unknownError(error: error)))
+                    return
+                }
+                let decoder = JSONDecoder()
+                do {
+                    let decodedData = try decoder.decode(ResponseBody.self, from: data)
+                    complition(Result.success(decodedData))
+                } catch {
+                    complition(Result.failure(.jsonParsingFailure))
+                }
+                
+            }
+    }
+}
