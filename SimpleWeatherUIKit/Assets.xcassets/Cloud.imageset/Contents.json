@@ -1,11 +1,11 @@
 {
   "images" : [
     {
+      "filename" : "Cloud.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Pixel_Town_01_1636998848817.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },

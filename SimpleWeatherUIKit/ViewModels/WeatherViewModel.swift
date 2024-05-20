@@ -9,7 +9,8 @@ import Foundation
 import CoreLocation
 import Observation
 
-@Observable final class WeatherViewModel {
+final class WeatherViewModel {
+    static let shared = WeatherService()
     
     var locationService = LocationService.shared
     var weatherService = WeatherService.shared
