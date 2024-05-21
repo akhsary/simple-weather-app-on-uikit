@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 final  class LocationService: NSObject, CLLocationManagerDelegate {
-    static let shared = LocationService()
+    static var shared = LocationService()
     
     var locationManager: CLLocationManager?
     var location: CLLocationCoordinate2D?

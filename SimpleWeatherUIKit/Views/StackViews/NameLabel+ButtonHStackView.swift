@@ -20,7 +20,7 @@ class NameLabel_ButtonHStackView: UIView {
     private var stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.spacing = -50
+        stack.spacing = 0
         return stack
     }()
     
@@ -32,7 +32,7 @@ class NameLabel_ButtonHStackView: UIView {
     private func createButton() -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle("Another city?", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20)
+        button.titleLabel!.font = .systemFont(ofSize: 20)
         button.tintColor = .white
         button.addTarget(self, action: #selector(handleTap), for: .touchUpInside)
         return button
@@ -46,14 +46,14 @@ class NameLabel_ButtonHStackView: UIView {
         let button = createButton()
         
         stackView.addArrangedSubview(cityLabel)
-        //cityLabel.anchor(width: (frame.width+10)/2)
+        cityLabel.anchor(top: stackView.topAnchor)
         
         stackView.addArrangedSubview(button)
-        button.anchor(top: stackView.topAnchor, paddingTop: -70)
+        button.anchor(top: stackView.topAnchor, paddingTop: -35)
         
         addSubview(stackView)
         stackView.anchor(top: topAnchor, left: leftAnchor,
-                         right: rightAnchor, height: 130)
+                         right: rightAnchor, height: 80)
     }
     
     required init?(coder: NSCoder) {
@@ -73,4 +73,3 @@ extension NameLabel_ButtonHStackView: NameLabelDelegate {
     func onTap() {
     }
 }
-

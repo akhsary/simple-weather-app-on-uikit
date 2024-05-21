@@ -8,7 +8,13 @@
 import UIKit
 
 class CityAndDateView: UIView {
-
+    
+    
+    private var weatherData = WeatherViewModel.shared
+    
+    private var userWeather: ResponseBody?
+    
+    
     private var stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -18,12 +24,11 @@ class CityAndDateView: UIView {
     
     private func createCityName() -> UILabel {
         let label = UILabel()
-        label.text = "Sevastopol"
+        label.text = "Default City"
         label.textAlignment = .left
-        label.font = .boldSystemFont(ofSize: 40)
-        label.numberOfLines = 2
+        label.font = .boldSystemFont(ofSize: 35)
+        label.adjustsFontSizeToFitWidth = true
         label.textColor = .white
-        label.preferredMaxLayoutWidth = 210
         return label
     }
     
@@ -41,15 +46,24 @@ class CityAndDateView: UIView {
         let cityLabel = createCityName()
         let date = getDate()
         
+        
         stackView.addArrangedSubview(cityLabel)
-        cityLabel.translatesAutoresizingMaskIntoConstraints = false
+        cityLabel.widthAnchor.constraint(equalToConstant: 210).isActive = true
         
         stackView.addArrangedSubview(date)
-        date.translatesAutoresizingMaskIntoConstraints = false
+
         
         addSubview(stackView)
         stackView.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor)
-    }
+        weatherData.onUserWeatherChange1 = { [weak self] value in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.userWeather = value
+                print("DEBUG: City name changed to: \(String(describing: self.userWeather?.name))")
+                cityLabel.text = self.userWeather?.name
+            }
+        }
+  }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

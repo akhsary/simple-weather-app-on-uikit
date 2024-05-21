@@ -6,14 +6,16 @@
 //
 
 import UIKit
+import Observation
+import Combine
 
 class WeatherViewController: UIViewController {
-
     
     // MARK: - Properties
     
+    
     private lazy var hStackView: UIView = {
-        let stack = NameLabel_ButtonHStackView(frame: CGRect(x: CGFloat(10), y: CGFloat(50), width: view.frame.width, height: CGFloat(120)))
+        let stack = NameLabel_ButtonHStackView(frame: CGRect(x: CGFloat(10), y: CGFloat(50), width: view.frame.width, height: CGFloat(80)))
         stack.delegate = self
         return stack
     }()
@@ -41,10 +43,14 @@ class WeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemCyan
+        
+        view.addSubview(containerView)
+        
+        
         view.addSubview(hStackView)
         
         view.addSubview(weatherDataStack)
-        weatherDataStack.anchor(top: hStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 20, paddingRight: 20)
+        weatherDataStack.anchor(top: hStackView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 10, paddingRight: 20)
         
         view.addSubview(image)
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -53,7 +59,7 @@ class WeatherViewController: UIViewController {
         image.anchor(width: 300, height: 300)
         image.layer.cornerRadius = 300/2
         
-        view.addSubview(containerView)
+        
     }
 }
 
@@ -63,6 +69,6 @@ extension WeatherViewController: NameLabelDelegate {
     }
 }
 
-#Preview {
-    WeatherViewController()
-}
+//#Preview {
+//    WeatherViewController()
+//}

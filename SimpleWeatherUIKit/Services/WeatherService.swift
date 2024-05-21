@@ -12,7 +12,7 @@ import CoreLocation
 fileprivate let key = "b522a2d63414c8b37c1c262907b47a4d"
 
 final class WeatherService {
-    static let shared = WeatherService()
+    static var shared = WeatherService()
     
     func fetchWeather(latitude: CLLocationDegrees, longitude: CLLocationDegrees, complition: @escaping (Result<ResponseBody,APIError>) -> Void) {
         let url = "https://api.openweathermap.org/data/2.5/weather?lat=\(latitude)&lon=\(longitude)&appid=\(key)&units=metric"
@@ -20,11 +20,7 @@ final class WeatherService {
         AF.request(url)
             .validate()
             .responseData { response in
-                switch response.result {
-                case .success:
-                    print("DEBUG: Validation Successful")
-                case let .failure(error):
-                    complition(Result.failure(.invalidStatusCode(error: error)))
+                if let error = response.error { complition(Result.failure(.invalidStatusCode(error: error)))
                 }
             }
             .response { response in
@@ -45,4 +41,5 @@ final class WeatherService {
                 
             }
     }
+    private init(){}
 }

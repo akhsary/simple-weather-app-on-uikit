@@ -8,7 +8,11 @@
 import UIKit
 
 class ContainerWeatherElenentsView: UIView {
-
+    
+    private var weatherData = WeatherViewModel.shared
+    
+    private var userWeather: ResponseBody?
+    
     private var rectangle: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 26
@@ -52,7 +56,7 @@ class ContainerWeatherElenentsView: UIView {
         rectangle.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, height: 250)
         
         let maxTempLogo = createLogo("thermometer.high")
-        let maxTempDegrees = createValue("25°")
+        let maxTempDegrees = createValue("default°")
         let maxTempLabel = createLabel("Max temp")
         
         addSubview(maxTempLogo)
@@ -85,14 +89,25 @@ class ContainerWeatherElenentsView: UIView {
         windLabel.anchor(left: maxTempLogo.rightAnchor, bottom: rectangle.bottomAnchor, paddingLeft: 10, paddingBottom: 100)
         
         let humidityLogo = createLogo("humidity")
-        let humiditySpeed = createValue("70.0%")
+        let humidity = createValue("70.0%")
         let humidityLabel = createLabel("Humidity")
         addSubview(humidityLogo)
         humidityLogo.anchor(bottom: rectangle.bottomAnchor, right: rectangle.rightAnchor, paddingBottom: 70, paddingRight: 100)
-        addSubview(humiditySpeed)
-        humiditySpeed.anchor(left: humidityLogo.rightAnchor, bottom: rectangle.bottomAnchor, paddingLeft: 1, paddingBottom: 70)
+        addSubview(humidity)
+        humidity.anchor(left: humidityLogo.rightAnchor, bottom: rectangle.bottomAnchor, paddingLeft: 1, paddingBottom: 70)
         addSubview(humidityLabel)
         humidityLabel.anchor(left: humidityLogo.rightAnchor, bottom: rectangle.bottomAnchor, paddingLeft: 1, paddingBottom: 100)
+        
+        weatherData.onUserWeatherChange3 = { [weak self] value in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.userWeather = value
+                maxTempDegrees.text = (self.userWeather?.main.tempMax.roundDouble() ?? "default") + "°"
+                minTempDegrees.text = (self.userWeather?.main.tempMin.roundDouble() ?? "default") + "°"
+                windSpeed.text = (self.userWeather?.wind.speed.roundDouble() ?? "default") + "m/s"
+                humidity.text = (self.userWeather?.main.humidity.roundDouble() ?? "default") + "%"
+            }
+        }
         
     }
     
