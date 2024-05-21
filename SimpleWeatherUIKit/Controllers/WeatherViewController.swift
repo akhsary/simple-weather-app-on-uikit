@@ -7,12 +7,12 @@
 
 import UIKit
 import Observation
-import Combine
+
+private var isAdded = false
 
 class WeatherViewController: UIViewController {
     
     // MARK: - Properties
-    
     
     private lazy var hStackView: UIView = {
         let stack = NameLabel_ButtonHStackView(frame: CGRect(x: CGFloat(10), y: CGFloat(50), width: view.frame.width, height: CGFloat(80)))
@@ -39,7 +39,7 @@ class WeatherViewController: UIViewController {
         return view
     }()
     
-    
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemCyan
@@ -65,10 +65,17 @@ class WeatherViewController: UIViewController {
 
 extension WeatherViewController: NameLabelDelegate {
     func onTap() {
-        print("DEBUG: Button tapped in the main view")
+        if let userWeather = WeatherViewModel.shared.userWeather {
+            if !isAdded {
+                WeatherViewModel.shared.deafultCitiesArray.append(userWeather)
+                isAdded = true
+            }
+        }
+        self.present(UINavigationController(rootViewController: PushViewController()), animated: true)
     }
 }
 
-//#Preview {
-//    WeatherViewController()
-//}
+
+#Preview {
+    WeatherViewController()
+}

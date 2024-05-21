@@ -19,7 +19,6 @@ final class WeatherViewModel: ObservableObject {
     var onUserWeatherChange1: ((ResponseBody?)->())?
     var onUserWeatherChange2: ((ResponseBody?)->())?
     var onUserWeatherChange3: ((ResponseBody?)->())?
-    var onUserWeatherChange4: ((ResponseBody?)->())?
     
     var userWeather: ResponseBody? {
         didSet {
@@ -27,9 +26,9 @@ final class WeatherViewModel: ObservableObject {
             onUserWeatherChange1?(userWeather)
             onUserWeatherChange2?(userWeather)
             onUserWeatherChange3?(userWeather)
-            onUserWeatherChange4?(userWeather)
         }
     }
+    
     var deafultCitiesArray: [ResponseBody] = []
     private let defaultCoordArray: [CLLocationCoordinate2D] =
         [
@@ -57,14 +56,20 @@ final class WeatherViewModel: ObservableObject {
             }
         }
     }
-    
     func loadWeatherForDefaultCities() {
+        let group = DispatchGroup()
+        var result = [ResponseBody]()
         defaultCoordArray.forEach { location in
+            group.enter()
             loadWeatherFor(location) { weatherData in
                 if let weatherData = weatherData {
-                    self.deafultCitiesArray.append(weatherData)
+                    result.append(weatherData)
                 }
+                group.leave()
             }
+        }
+        group.notify(queue: .main) {
+            self.deafultCitiesArray = result
         }
     }
     

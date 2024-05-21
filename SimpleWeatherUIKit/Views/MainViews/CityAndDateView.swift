@@ -60,7 +60,7 @@ class CityAndDateView: UIView {
             DispatchQueue.main.async {
                 self.userWeather = value
                 print("DEBUG: City name changed to: \(String(describing: self.userWeather?.name))")
-                cityLabel.text = self.userWeather?.name
+                cityLabel.text = self.userWeather?.name ?? ""
             }
         }
   }

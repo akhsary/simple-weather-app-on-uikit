@@ -12,6 +12,7 @@
 		5B1F735B2BFBAA2D000D27E5 /* CityAndDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1F735A2BFBAA2D000D27E5 /* CityAndDateView.swift */; };
 		5B1F735E2BFBC0DB000D27E5 /* ContainerWeatherElenentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1F735D2BFBC0DB000D27E5 /* ContainerWeatherElenentsView.swift */; };
 		5B1F73602BFBC566000D27E5 /* WeatherHStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1F735F2BFBC566000D27E5 /* WeatherHStackView.swift */; };
+		5B2594E32BFCD48D00A1B4A0 /* PushViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2594E22BFCD48D00A1B4A0 /* PushViewController.swift */; };
 		5B320F812BFA66F90082231F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B320F802BFA66F90082231F /* AppDelegate.swift */; };
 		5B320F832BFA66F90082231F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B320F822BFA66F90082231F /* SceneDelegate.swift */; };
 		5B320F852BFA66F90082231F /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B320F842BFA66F90082231F /* WeatherViewController.swift */; };
@@ -32,6 +33,7 @@
 		5B1F735A2BFBAA2D000D27E5 /* CityAndDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityAndDateView.swift; sourceTree = "<group>"; };
 		5B1F735D2BFBC0DB000D27E5 /* ContainerWeatherElenentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerWeatherElenentsView.swift; sourceTree = "<group>"; };
 		5B1F735F2BFBC566000D27E5 /* WeatherHStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHStackView.swift; sourceTree = "<group>"; };
+		5B2594E22BFCD48D00A1B4A0 /* PushViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushViewController.swift; sourceTree = "<group>"; };
 		5B320F7D2BFA66F90082231F /* SimpleWeatherUIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleWeatherUIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B320F802BFA66F90082231F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B320F822BFA66F90082231F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,14 +69,15 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		5B1F735C2BFBB242000D27E5 /* StackViews */ = {
+		5B2594E42BFCD4B800A1B4A0 /* MainViews */ = {
 			isa = PBXGroup;
 			children = (
+				5B1F735D2BFBC0DB000D27E5 /* ContainerWeatherElenentsView.swift */,
 				5B1F73582BFB9C61000D27E5 /* NameLabel+ButtonHStackView.swift */,
 				5B1F735A2BFBAA2D000D27E5 /* CityAndDateView.swift */,
 				5B1F735F2BFBC566000D27E5 /* WeatherHStackView.swift */,
 			);
-			path = StackViews;
+			path = MainViews;
 			sourceTree = "<group>";
 		};
 		5B320F742BFA66F90082231F = {
@@ -113,8 +116,7 @@
 		5B320F942BFA6F6C0082231F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5B1F735C2BFBB242000D27E5 /* StackViews */,
-				5B1F735D2BFBC0DB000D27E5 /* ContainerWeatherElenentsView.swift */,
+				5B2594E42BFCD4B800A1B4A0 /* MainViews */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				5B320F842BFA66F90082231F /* WeatherViewController.swift */,
+				5B2594E22BFCD48D00A1B4A0 /* PushViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B320FAC2BFA77D30082231F /* ResponseBodyModel.swift in Sources */,
+				5B2594E32BFCD48D00A1B4A0 /* PushViewController.swift in Sources */,
 				5B1F73602BFBC566000D27E5 /* WeatherHStackView.swift in Sources */,
 				5B320FAE2BFA829A0082231F /* WeatherViewModel.swift in Sources */,
 				5B320F852BFA66F90082231F /* WeatherViewController.swift in Sources */,
@@ -414,6 +418,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SimpleWeatherUIKit/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Location Servicec needed for showing your current location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "\nAccess to application data is required to show your local weather.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -441,6 +447,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SimpleWeatherUIKit/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Location Servicec needed for showing your current location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "\nAccess to application data is required to show your local weather.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

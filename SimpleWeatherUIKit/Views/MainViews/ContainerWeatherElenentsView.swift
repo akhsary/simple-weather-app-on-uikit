@@ -24,11 +24,8 @@ class ContainerWeatherElenentsView: UIView {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: logo)
         var config = UIImage.SymbolConfiguration(paletteColors: [.black, .black])
-        // Apply a configuration that scales to the system font point size of 42.
         config = config.applying(UIImage.SymbolConfiguration(font: .systemFont(ofSize: 40)))
         imageView.preferredSymbolConfiguration = config
-        imageView.backgroundColor = .lightGray
-        imageView.layer.cornerRadius = 16
         return imageView
     }
     
@@ -55,9 +52,11 @@ class ContainerWeatherElenentsView: UIView {
         addSubview(rectangle)
         rectangle.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, height: 250)
         
+        
         let maxTempLogo = createLogo("thermometer.high")
-        let maxTempDegrees = createValue("default°")
+        let maxTempDegrees = createValue("")
         let maxTempLabel = createLabel("Max temp")
+        
         
         addSubview(maxTempLogo)
         maxTempLogo.anchor(top: rectangle.topAnchor, left: rectangle.leftAnchor, paddingTop: 30, paddingLeft: 30)
@@ -67,7 +66,7 @@ class ContainerWeatherElenentsView: UIView {
         maxTempLabel.anchor(top: rectangle.topAnchor, left: maxTempLogo.rightAnchor, paddingTop: 32, paddingLeft: 10)
         
         let minTempLogo = createLogo("thermometer.low")
-        let minTempDegrees = createValue("21°")
+        let minTempDegrees = createValue("")
         let minTempLabel = createLabel("Min temp")
         
         addSubview(minTempLogo)
@@ -78,7 +77,7 @@ class ContainerWeatherElenentsView: UIView {
         minTempLabel.anchor(top: rectangle.topAnchor, left: minTempLogo.rightAnchor, paddingTop: 32, paddingLeft: 10)
         
         let windLogo = createLogo("wind")
-        let windSpeed = createValue("4m/s")
+        let windSpeed = createValue("")
         let windLabel = createLabel("Wind")
         
         addSubview(windLogo)
@@ -89,7 +88,7 @@ class ContainerWeatherElenentsView: UIView {
         windLabel.anchor(left: maxTempLogo.rightAnchor, bottom: rectangle.bottomAnchor, paddingLeft: 10, paddingBottom: 100)
         
         let humidityLogo = createLogo("humidity")
-        let humidity = createValue("70.0%")
+        let humidity = createValue("")
         let humidityLabel = createLabel("Humidity")
         addSubview(humidityLogo)
         humidityLogo.anchor(bottom: rectangle.bottomAnchor, right: rectangle.rightAnchor, paddingBottom: 70, paddingRight: 100)
@@ -102,10 +101,10 @@ class ContainerWeatherElenentsView: UIView {
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.userWeather = value
-                maxTempDegrees.text = (self.userWeather?.main.tempMax.roundDouble() ?? "default") + "°"
-                minTempDegrees.text = (self.userWeather?.main.tempMin.roundDouble() ?? "default") + "°"
-                windSpeed.text = (self.userWeather?.wind.speed.roundDouble() ?? "default") + "m/s"
-                humidity.text = (self.userWeather?.main.humidity.roundDouble() ?? "default") + "%"
+                maxTempDegrees.text = (self.userWeather?.main.tempMax.roundDouble() ?? "") + "°"
+                minTempDegrees.text = (self.userWeather?.main.tempMin.roundDouble() ?? "") + "°"
+                windSpeed.text = (self.userWeather?.wind.speed.roundDouble() ?? "") + "m/s"
+                humidity.text = (self.userWeather?.main.humidity.roundDouble() ?? "") + "%"
             }
         }
         

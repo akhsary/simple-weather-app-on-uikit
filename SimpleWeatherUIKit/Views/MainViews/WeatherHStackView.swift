@@ -58,9 +58,8 @@ class WeatherHStackView: UIView {
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.userWeather = value
-                print("DEBUG: City name changed to: \(String(describing: self.userWeather?.name))")
-                degrees.text = ((self.userWeather?.main.temp.roundDouble() ?? "666") + "°")
-                label.text = "\(self.userWeather?.weather[0].main ?? "rain")"
+                degrees.text = ((self.userWeather?.main.temp.roundDouble() ?? "") + "°")
+                label.text = "\(self.userWeather?.weather[0].main ?? "")"
             }
         }
         

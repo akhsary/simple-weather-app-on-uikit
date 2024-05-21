@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 import CoreLocation
 
-fileprivate let key = "b522a2d63414c8b37c1c262907b47a4d"
+private let key = "b522a2d63414c8b37c1c262907b47a4d" 
 
 final class WeatherService {
     static var shared = WeatherService()
